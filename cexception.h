@@ -1,7 +1,7 @@
-#ifndef __cexceptions_h__
-#define __cexceptions_h__
+#ifndef __cexception_h__
+#define __cexception_h__
 
-/* $Id: cexception.h,v 1.2 2023/01/14 20:17:14 swp Exp $
+/* $Id: cexception.h,v 1.3 2023/01/15 03:53:23 swp Exp $
  *
  * EXAMPLE:
  *
@@ -58,7 +58,7 @@ extern struct ef {
     int ef_val; \
     {
 
-static inline void __attribute__((__always_inline__)) cleanup_ef(struct ef *ef) {
+static inline void __attribute__((always_inline)) cleanup_ef(struct ef *ef __attribute__((unused))) {
     ef_top = ef_top->lnk;
 }
 #define try     for (struct ef ef_ __attribute__((__cleanup__(cleanup_ef))) = \
@@ -79,7 +79,7 @@ static inline void __attribute__((__always_inline__)) cleanup_ef(struct ef *ef) 
                         __label__ _L_exception; \
                         {
 
-static inline void __attribute__((__always_inline__)) cleanup_catch(int *x __attribute__((__unused__))) {
+static inline void __attribute__((always_inline)) cleanup_catch(int *x __attribute__((unused))) {
     ef_top->exception = 0;
 }
 #define catch(x)            break; \
